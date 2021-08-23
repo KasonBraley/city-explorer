@@ -1,6 +1,6 @@
 # CityExplorer
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/c63744c9-b79e-4493-8251-46ca66f4814a/deploy-status)](https://app.netlify.com/sites/kb-city-explorer/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/cff451ea-47e5-4182-a711-d420f3b9f1c1/deploy-status)](https://app.netlify.com/sites/city-explorer-game/deploys)
 
 **Author**: Kason Braley
 
@@ -27,6 +27,8 @@ data includes longitude and latitude and an interactive map.
 **Libraries**: React, React Bootstrap, Axios
 
 **API's**: [Location IQ Geocoding API]() 
+
+![diagram](./assets/data-flow.png)
 
 ## Change Log
 
