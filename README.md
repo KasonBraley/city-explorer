@@ -37,11 +37,11 @@ data includes longitude and latitude and an interactive map.
 
 ## Time Estimates
 
-Name of feature: 
+Name of feature: Locations
 
-Estimate of time needed to complete:
+Estimate of time needed to complete: 1 hour
 
-Start time:
+Start time: 4pm
 
 Finish time:
 
