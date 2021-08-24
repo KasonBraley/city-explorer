@@ -30,7 +30,10 @@ export default class App extends React.Component {
       <>
         <CityForm handleSubmit={this.handleSubmit} />
         {this.state.cityData.place_id && (
-          <CityCard cityData={this.state.cityData} />
+          <CityCard
+            search={this.state.searchQuery}
+            cityData={this.state.cityData}
+          />
         )}
       </>
     );
