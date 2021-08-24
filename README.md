@@ -28,6 +28,8 @@ data includes longitude and latitude and an interactive map.
 
 **API's**: [Location IQ Geocoding API]() 
 
+![diagram](./assets/data-flow.png)
+
 ## Change Log
 
 ## Collaborations
@@ -35,12 +37,34 @@ data includes longitude and latitude and an interactive map.
 
 ## Time Estimates
 
-Name of feature: 
+Name of feature: Locations
 
-Estimate of time needed to complete:
+Estimate of time needed to complete: 1 hour
 
-Start time:
+Start time: 4pm
 
-Finish time:
+Finish time: 6:30pm
 
-Actual time needed to complete:
+Actual time needed to complete: 2 and a half hours
+
+<hr>
+Name of feature: Map
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 7pm
+
+Finish time: 8:30pm
+
+Actual time needed to complete: 1 hour
+
+<hr>
+Name of feature: Errors
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 8pm
+
+Finish time: 9pm
+
+Actual time needed to complete: 1 hour
