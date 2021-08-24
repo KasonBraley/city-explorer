@@ -1,22 +1,26 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default class CityForm extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  handleSubmit = (event) => {
+    event.preventDefault();
+    let city = event.target.elements.formCity.value;
+    this.props.handleSubmit(city);
+  };
 
   render() {
     return (
-      <Form>
-        <Form.Group controlID="formCity">
+      <Form
+        style={{ margin: "10px", width: "25rem" }}
+        onSubmit={this.handleSubmit}
+      >
+        <Form.Group className="mb-3" controlId="formCity">
           <Form.Label>City</Form.Label>
-          <Form.Control type="text" />
+          <Form.Control type="text" placeholder="Enter city name" />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Explore!
-        </Button>
+        <Button type="submit">Explore!</Button>
       </Form>
     );
   }
