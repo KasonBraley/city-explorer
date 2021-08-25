@@ -3,11 +3,13 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Image from "react-bootstrap/Image";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../App.css";
+import Weather from "./weather.jsx";
 
 export default class CityCard extends React.Component {
   render() {
     return (
-      <>
+      <div className="cards">
         <Card style={{ width: "18rem", margin: "10px", marginTop: "30px" }}>
           <Card.Header>Location Details</Card.Header>
           <Card.Body>
@@ -30,7 +32,8 @@ export default class CityCard extends React.Component {
           roundedCircle
           style={{ width: "30rem" }}
         />
-      </>
+        {this.props.forecast && <Weather forecast={this.props.forecast} />}
+      </div>
     );
   }
 }

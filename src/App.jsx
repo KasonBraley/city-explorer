@@ -2,6 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CityForm from "./components/form.jsx";
 import CityCard from "./components/cityCard.jsx";
+// import Weather from "./components/weather.jsx";
 import axios from "axios";
 
 export default class App extends React.Component {
@@ -12,6 +13,7 @@ export default class App extends React.Component {
       searchCount: 0,
       error: "",
       cityData: {},
+      forecast: "",
     };
   }
 
@@ -21,6 +23,7 @@ export default class App extends React.Component {
       searchCount: this.state.searchCount + 1,
     });
     this.getLocationData(query);
+    // this.getForecast();
   };
 
   getLocationData = async (query) => {
@@ -32,8 +35,8 @@ export default class App extends React.Component {
     await axios
       .get(API)
       .then((res) => {
-        console.log(res.data);
         this.setState({ cityData: res.data[0], error: "" });
+        this.getForecast();
       })
       .catch((error) => {
         if (error.response) {
@@ -41,6 +44,21 @@ export default class App extends React.Component {
         }
         return;
       });
+  };
+
+  getForecast = async () => {
+    if (this.state.cityData.lon && this.state.cityData.lat) {
+      const API = `http://localhost:3001/weather/?searchQuery=${this.state.searchQuery}`;
+      await axios
+        .get(API)
+        .then((res) => {
+          this.setState({ forecast: res.data });
+        })
+        .catch((error) => {
+          this.setState({ forecast: false, error: error.response.status });
+          console.log(error);
+        });
+    }
   };
 
   render() {
@@ -56,8 +74,10 @@ export default class App extends React.Component {
           <CityCard
             search={this.state.searchQuery}
             cityData={this.state.cityData}
+            forecast={this.state.forecast}
           />
         )}
+        {/* {this.state.forecast && <Weather forecast={this.state.forecast} />} */}
       </>
     );
   }

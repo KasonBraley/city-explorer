@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  background-color: grey;
+}
+
+.cards {
+  background-color: black;
+  display: flex;
+}
+
+.forecast {
+  align-items: center;
+  background-color: black;
+  display: flex;
+}
