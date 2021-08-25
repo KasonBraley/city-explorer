@@ -2,7 +2,6 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CityForm from "./components/form.jsx";
 import CityCard from "./components/cityCard.jsx";
-// import Weather from "./components/weather.jsx";
 import axios from "axios";
 
 export default class App extends React.Component {
@@ -23,7 +22,6 @@ export default class App extends React.Component {
       searchCount: this.state.searchCount + 1,
     });
     this.getLocationData(query);
-    // this.getForecast();
   };
 
   getLocationData = async (query) => {
@@ -40,7 +38,10 @@ export default class App extends React.Component {
       })
       .catch((error) => {
         if (error.response) {
-          this.setState({ cityData: {}, error: error.response.status });
+          this.setState({
+            cityData: {},
+            error: error.response.status,
+          });
         }
         return;
       });
@@ -48,7 +49,7 @@ export default class App extends React.Component {
 
   getForecast = async () => {
     if (this.state.cityData.lon && this.state.cityData.lat) {
-      const API = `http://localhost:3001/weather/?searchQuery=${this.state.searchQuery}`;
+      const API = `http://localhost:3001/weather/?lon=${this.state.cityData.lon}&lat=${this.state.cityData.lat}`;
       await axios
         .get(API)
         .then((res) => {
@@ -77,7 +78,6 @@ export default class App extends React.Component {
             forecast={this.state.forecast}
           />
         )}
-        {/* {this.state.forecast && <Weather forecast={this.state.forecast} />} */}
       </>
     );
   }
