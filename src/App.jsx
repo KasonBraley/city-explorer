@@ -2,7 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CityForm from "./components/form.jsx";
 import CityCard from "./components/cityCard.jsx";
-import Movie from "./components/movie.jsx";
+import Movies from "./components/movies.jsx";
 import axios from "axios";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3001";
@@ -103,10 +103,7 @@ export default class App extends React.Component {
           />
         )}
         <div className="allMovies">
-          {this.state.movies &&
-            this.state.movies.map((movie) => {
-              return <Movie movie={movie} />;
-            })}
+          {this.state.movies && <Movies movies={this.state.movies} />}
         </div>
       </>
     );
