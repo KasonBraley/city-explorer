@@ -23,15 +23,17 @@ export default class App extends React.Component {
       searchQuery: query,
       searchCount: this.state.searchCount + 1,
     });
+
+    if (query === this.state.searchQuery) {
+      return;
+    }
+
     this.getLocationData(query);
     this.getMovies(query);
   };
 
   getLocationData = async (query) => {
     const API = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_CITY_EXPLORER}&q=${query}&format=json&limit=1`;
-    if (query === this.state.searchQuery) {
-      return;
-    }
 
     await axios
       .get(API)
