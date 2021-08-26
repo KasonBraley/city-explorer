@@ -4,16 +4,15 @@
 
 **Author**: Kason Braley
 
-**Version**: 1.0.0 
-
-[Backend](https://github.com/KasonBraley/city-explorer-api)
+**Version**: 1.4.0 
 
 ## Overview
 A React application that utilizes the Axios library to make
-user initiated requests for data from a third-party API.
+user initiated requests for data from multiple third party APIs.
 
 Provides quick answers to location based queries. Response 
-data includes longitude and latitude and an interactive map.
+data includes location data (with a map), the weather forecast for
+that location, and any related movies to that city.
 
 
 ## Getting Started
@@ -27,14 +26,16 @@ data includes longitude and latitude and an interactive map.
 
 **Libraries**: React, React Bootstrap, Axios
 
-**API's**: [Location IQ Geocoding API]() 
+[Backend](https://github.com/KasonBraley/city-explorer-api)
 
-![diagram](./assets/data-flow.png)
+**API's**: [Location IQ Geocoding API](https://locationiq.com/) 
+
+![diagram](./assets/lab9wwrc.png)
 
 ## Change Log
 
 ## Collaborations
-**Whiteboarding** - Brandon Rimes
+**Whiteboarding** - Brandon Rimes, Kyle Cohen, Alexander Beers, Joe Ivans
 
 ## Time Estimates
 
