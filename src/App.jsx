@@ -2,8 +2,10 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CityForm from "./components/form.jsx";
 import CityCard from "./components/cityCard.jsx";
-// import Weather from "./components/weather.jsx";
+import Movie from "./components/movie.jsx";
 import axios from "axios";
+
+const SERVER_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3001";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -14,48 +16,71 @@ export default class App extends React.Component {
       error: "",
       cityData: {},
       forecast: "",
+      movies: "",
     };
   }
 
-  handleSubmit = (query) => {
+  handleSubmit = async (query) => {
     this.setState({
       searchQuery: query,
       searchCount: this.state.searchCount + 1,
     });
-    this.getLocationData(query);
-    // this.getForecast();
+
+    if (query === this.state.searchQuery) {
+      return;
+    }
+
+    await this.getLocationData(query);
+    this.getForecast();
+    this.getMovies(query);
   };
 
   getLocationData = async (query) => {
     const API = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_CITY_EXPLORER}&q=${query}&format=json&limit=1`;
-    if (query === this.state.searchQuery) {
-      return;
-    }
 
     await axios
       .get(API)
       .then((res) => {
         this.setState({ cityData: res.data[0], error: "" });
-        this.getForecast();
       })
       .catch((error) => {
         if (error.response) {
-          this.setState({ cityData: {}, error: error.response.status });
+          this.setState({
+            cityData: {},
+            movies: "",
+            error: error.response.status,
+          });
         }
         return;
       });
   };
 
+  getMovies = async (query) => {
+    const API = `${SERVER_URL}/movies/?query=${query}`;
+    await axios
+      .get(API)
+      .then((res) => {
+        this.setState({ movies: res.data });
+      })
+      .catch((error) => {
+        this.setState({ movies: "", error: error.response });
+        console.log(error);
+      });
+  };
+
   getForecast = async () => {
     if (this.state.cityData.lon && this.state.cityData.lat) {
-      const API = `http://localhost:3001/weather/?searchQuery=${this.state.searchQuery}`;
+      const API = `${SERVER_URL}/weather/?lon=${this.state.cityData.lon}&lat=${this.state.cityData.lat}`;
       await axios
         .get(API)
         .then((res) => {
           this.setState({ forecast: res.data });
         })
         .catch((error) => {
-          this.setState({ forecast: false, error: error.response.status });
+          this.setState({
+            forecast: false,
+            error: error.response.status,
+          });
           console.log(error);
         });
     }
@@ -77,7 +102,12 @@ export default class App extends React.Component {
             forecast={this.state.forecast}
           />
         )}
-        {/* {this.state.forecast && <Weather forecast={this.state.forecast} />} */}
+        <div className="allMovies">
+          {this.state.movies &&
+            this.state.movies.map((movie) => {
+              return <Movie movie={movie} />;
+            })}
+        </div>
       </>
     );
   }
