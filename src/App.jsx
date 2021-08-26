@@ -18,7 +18,7 @@ export default class App extends React.Component {
     };
   }
 
-  handleSubmit = (query) => {
+  handleSubmit = async (query) => {
     this.setState({
       searchQuery: query,
       searchCount: this.state.searchCount + 1,
@@ -28,7 +28,8 @@ export default class App extends React.Component {
       return;
     }
 
-    this.getLocationData(query);
+    await this.getLocationData(query);
+    this.getForecast();
     this.getMovies(query);
   };
 
@@ -39,7 +40,6 @@ export default class App extends React.Component {
       .get(API)
       .then((res) => {
         this.setState({ cityData: res.data[0], error: "" });
-        this.getForecast();
       })
       .catch((error) => {
         if (error.response) {
