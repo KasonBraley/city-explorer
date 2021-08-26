@@ -5,6 +5,8 @@ import CityCard from "./components/cityCard.jsx";
 import Movie from "./components/movie.jsx";
 import axios from "axios";
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3001";
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -54,7 +56,7 @@ export default class App extends React.Component {
   };
 
   getMovies = async (query) => {
-    const API = `http://localhost:3001/movies/?query=${query}`;
+    const API = `${SERVER_URL}/movies/?query=${query}`;
     await axios
       .get(API)
       .then((res) => {
@@ -68,7 +70,7 @@ export default class App extends React.Component {
 
   getForecast = async () => {
     if (this.state.cityData.lon && this.state.cityData.lat) {
-      const API = `http://localhost:3001/weather/?lon=${this.state.cityData.lon}&lat=${this.state.cityData.lat}`;
+      const API = `${SERVER_URL}/weather/?lon=${this.state.cityData.lon}&lat=${this.state.cityData.lat}`;
       await axios
         .get(API)
         .then((res) => {
