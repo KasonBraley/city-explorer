@@ -2,6 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CityForm from "./components/form.jsx";
 import CityCard from "./components/cityCard.jsx";
+import Movie from "./components/movie.jsx";
 import axios from "axios";
 
 export default class App extends React.Component {
@@ -13,6 +14,7 @@ export default class App extends React.Component {
       error: "",
       cityData: {},
       forecast: "",
+      movies: "",
     };
   }
 
@@ -22,6 +24,7 @@ export default class App extends React.Component {
       searchCount: this.state.searchCount + 1,
     });
     this.getLocationData(query);
+    this.getMovies(query);
   };
 
   getLocationData = async (query) => {
@@ -40,10 +43,24 @@ export default class App extends React.Component {
         if (error.response) {
           this.setState({
             cityData: {},
+            movies: "",
             error: error.response.status,
           });
         }
         return;
+      });
+  };
+
+  getMovies = async (query) => {
+    const API = `http://localhost:3001/movies/?query=${query}`;
+    await axios
+      .get(API)
+      .then((res) => {
+        this.setState({ movies: res.data });
+      })
+      .catch((error) => {
+        this.setState({ movies: "", error: error.response });
+        console.log(error);
       });
   };
 
@@ -56,7 +73,10 @@ export default class App extends React.Component {
           this.setState({ forecast: res.data });
         })
         .catch((error) => {
-          this.setState({ forecast: false, error: error.response.status });
+          this.setState({
+            forecast: false,
+            error: error.response.status,
+          });
           console.log(error);
         });
     }
@@ -78,6 +98,12 @@ export default class App extends React.Component {
             forecast={this.state.forecast}
           />
         )}
+        <div className="allMovies">
+          {this.state.movies &&
+            this.state.movies.map((movie) => {
+              return <Movie movie={movie} />;
+            })}
+        </div>
       </>
     );
   }
