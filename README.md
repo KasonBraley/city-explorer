@@ -4,8 +4,9 @@
 
 **Author**: Kason Braley
 
-**Version**: 1.0.0
+**Version**: 1.0.0 
 
+[Backend](https://github.com/KasonBraley/city-explorer-api)
 
 ## Overview
 A React application that utilizes the Axios library to make
