@@ -1,22 +1,23 @@
-import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import CityForm from "./components/form.jsx";
-import CityCard from "./components/cityCard.jsx";
-import Movies from "./components/movies.jsx";
-import axios from "axios";
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import CityForm from './components/form.jsx';
+import CityCard from './components/cityCard.jsx';
+import Movies from './components/movies.jsx';
+import axios from 'axios';
 
-const SERVER_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3001";
+// const SERVER_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3001";
+const SERVER_URL = 'http://localhost:3001';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchQuery: "",
+      searchQuery: '',
       searchCount: 0,
-      error: "",
+      error: '',
       cityData: {},
-      forecast: "",
-      movies: "",
+      forecast: '',
+      movies: '',
     };
   }
 
@@ -41,13 +42,13 @@ export default class App extends React.Component {
     await axios
       .get(API)
       .then((res) => {
-        this.setState({ cityData: res.data[0], error: "" });
+        this.setState({ cityData: res.data[0], error: '' });
       })
       .catch((error) => {
         if (error.response) {
           this.setState({
             cityData: {},
-            movies: "",
+            movies: '',
             error: error.response.status,
           });
         }
@@ -63,7 +64,7 @@ export default class App extends React.Component {
         this.setState({ movies: res.data });
       })
       .catch((error) => {
-        this.setState({ movies: "", error: error.response });
+        this.setState({ movies: '', error: error.response });
         console.log(error);
       });
   };

@@ -1,15 +1,15 @@
-import React from "react";
-import Card from "react-bootstrap/Card";
+import React from 'react';
+import Card from 'react-bootstrap/Card';
 
 class WeatherDay extends React.Component {
   render() {
     return (
       <Card
         style={{
-          width: "18rem",
-          height: "15rem",
-          margin: "10px",
-          marginTop: "30px",
+          width: '18rem',
+          height: '15rem',
+          margin: '10px',
+          marginTop: '30px',
         }}
         bg="primary"
         text="light"

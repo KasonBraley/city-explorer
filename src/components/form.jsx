@@ -1,8 +1,8 @@
-import React from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Error from "./error.jsx";
+import React from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Error from './error.jsx';
 
 export default class CityForm extends React.Component {
   handleSubmit = (event) => {
@@ -14,7 +14,7 @@ export default class CityForm extends React.Component {
   render() {
     return (
       <Form
-        style={{ margin: "10px", width: "25rem" }}
+        style={{ margin: '10px', width: '25rem' }}
         onSubmit={this.handleSubmit}
       >
         <Form.Group className="mb-3" controlId="formCity">

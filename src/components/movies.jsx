@@ -1,9 +1,9 @@
-import React from "react";
-import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
-import Image from "react-bootstrap/Image";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "../App.css";
+import React from 'react';
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Image from 'react-bootstrap/Image';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../App.css';
 
 export default class Movies extends React.Component {
   generateData = () => {
@@ -38,7 +38,7 @@ class Movie extends React.Component {
           />
         )}
         <Card className="movieCard">
-          <Card.Body style={{ overflowY: "scroll" }}>
+          <Card.Body style={{ overflowY: 'scroll' }}>
             <Card.Title>{this.props.title}</Card.Title>
 
             <ListGroup>

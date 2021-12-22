@@ -1,4 +1,4 @@
 build
 coverage
-*.html
 node_modules/
+dist
