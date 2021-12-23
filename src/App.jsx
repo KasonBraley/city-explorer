@@ -5,8 +5,7 @@ import CityCard from './components/cityCard.jsx';
 import Movies from './components/movies.jsx';
 import axios from 'axios';
 
-// const SERVER_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3001";
-const SERVER_URL = 'http://localhost:3001';
+const SERVER_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3001";
 
 export default class App extends React.Component {
   constructor(props) {
