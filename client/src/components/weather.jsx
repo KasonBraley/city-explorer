@@ -1,24 +1,12 @@
 import React from "react"
-import Card from "react-bootstrap/Card"
 
 function WeatherDay(props) {
     return (
-        <Card
-            style={{
-                width: "18rem",
-                height: "15rem",
-                margin: "10px",
-                marginTop: "30px",
-            }}
-            bg="primary"
-            text="light"
-        >
-            <Card.Header>Forecast</Card.Header>
-            <Card.Body>
-                <Card.Title>Date: {props.date}</Card.Title>
-                <p>Details: {props.description}</p>
-            </Card.Body>
-        </Card>
+        <div className="bg-blue-700 text-white rounded-full self-center text-center h-2/6 w-2/6 mx-2">
+            <span>Forecast</span>
+            <span>Date: {props.date}</span>
+            <p>Details: {props.description}</p>
+        </div>
     )
 }
 
@@ -28,7 +16,7 @@ export default function Weather(props) {
             return (
                 <WeatherDay
                     key={index}
-                    data={element.date}
+                    date={element.date}
                     description={element.description}
                 />
             )

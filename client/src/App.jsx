@@ -1,111 +1,65 @@
-import React from "react"
+import React, { useState } from "react"
 import "bootstrap/dist/css/bootstrap.min.css"
+
 import CityForm from "./components/form.jsx"
 import CityCard from "./components/cityCard.jsx"
 import Movies from "./components/movies.jsx"
-import axios from "axios"
+
+import getMovieData from "./utils/getMovieData.js"
+import getForecastData from "./utils/getForecastData.js"
+import getLocationData from "./utils/getLocationData.js"
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3001"
 
-export default class App extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            searchQuery: "",
-            searchCount: 0,
-            error: "",
-            cityData: {},
-            forecast: "",
-            movies: "",
-        }
-    }
+export default function App() {
+    let [movies, setMovies] = useState("")
+    let [forecast, setForecast] = useState("")
+    let [cityData, setCityData] = useState({})
+    let [error, setError] = useState("")
+    let [searchQuery, setSearchQuery] = useState("")
+    let [searchCount, setSearchCount] = useState(0)
 
-    handleSubmit = async (query) => {
-        this.setState({
-            searchQuery: query,
-            searchCount: this.state.searchCount + 1,
-        })
+    async function handleSubmit(query) {
+        setSearchQuery(query)
+        setSearchCount(searchCount + 1)
 
-        if (query === this.state.searchQuery) {
+        if (query === searchQuery) {
             return
         }
 
-        await this.getLocationData(query)
-        this.getForecast()
-        this.getMovies(query)
-    }
+        try {
+            let locationData = await getLocationData(query)
+            setCityData(locationData)
 
-    getLocationData = async (query) => {
-        const API = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_CITY_EXPLORER}&q=${query}&format=json&limit=1`
+            if (locationData.lon && locationData.lat) {
+                setForecast(await getForecastData(SERVER_URL, locationData))
+            }
 
-        await axios
-            .get(API)
-            .then((res) => {
-                this.setState({ cityData: res.data[0], error: "" })
-            })
-            .catch((error) => {
-                if (error.response) {
-                    this.setState({
-                        cityData: {},
-                        movies: "",
-                        error: error.response.status,
-                    })
-                }
-                return
-            })
-    }
-
-    getMovies = async (query) => {
-        const API = `${SERVER_URL}/movies/?query=${query}`
-        await axios
-            .get(API)
-            .then((res) => {
-                this.setState({ movies: res.data })
-            })
-            .catch((error) => {
-                this.setState({ movies: "", error: error.response })
-                console.log(error)
-            })
-    }
-
-    getForecast = async () => {
-        if (this.state.cityData.lon && this.state.cityData.lat) {
-            const API = `${SERVER_URL}/weather/?lon=${this.state.cityData.lon}&lat=${this.state.cityData.lat}`
-            await axios
-                .get(API)
-                .then((res) => {
-                    this.setState({ forecast: res.data })
-                })
-                .catch((error) => {
-                    this.setState({
-                        forecast: false,
-                        error: error.response.status,
-                    })
-                    console.log(error)
-                })
+            setMovies(await getMovieData(SERVER_URL, query))
+            setError("")
+        } catch (err) {
+            setError(err.message)
         }
     }
 
-    render() {
-        return (
-            <>
-                <CityForm
-                    handleSubmit={this.handleSubmit}
-                    searchQuery={this.state.searchQuery}
-                    searchCount={this.state.searchCount}
-                    error={this.state.error}
+    return (
+        <>
+            <CityForm
+                handleSubmit={handleSubmit}
+                searchQuery={searchQuery}
+                searchCount={searchCount}
+                error={error}
+            />
+            {cityData.place_id && (
+                <CityCard
+                    search={searchQuery}
+                    cityData={cityData}
+                    forecast={forecast}
                 />
-                {this.state.cityData.place_id && (
-                    <CityCard
-                        search={this.state.searchQuery}
-                        cityData={this.state.cityData}
-                        forecast={this.state.forecast}
-                    />
-                )}
-                <div className="allMovies">
-                    {this.state.movies && <Movies movies={this.state.movies} />}
-                </div>
-            </>
-        )
-    }
+            )}
+            <div className="allMovies">
+                {movies && <Movies movies={movies} />}
+            </div>
+        </>
+    )
 }

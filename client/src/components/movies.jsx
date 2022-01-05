@@ -1,13 +1,9 @@
 import React from "react"
-import Card from "react-bootstrap/Card"
-import ListGroup from "react-bootstrap/ListGroup"
-import Image from "react-bootstrap/Image"
-import "bootstrap/dist/css/bootstrap.min.css"
 import "../App.css"
 
 export default function Movies({ movies }) {
     function generateData() {
-        return movies.map((movie, index) => {
+        return movies.filter((movie) => movie.image_url).map((movie, index) => {
             return (
                 <Movie
                     key={index}
@@ -22,41 +18,32 @@ export default function Movies({ movies }) {
             )
         })
     }
-    return <>{generateData()}</>
+    return <div className="grid grid-cols-4">{generateData()}</div>
 }
 
 function Movie(props) {
     return (
-        <div className="movie">
+        <div className="movie flex bg-gray-300 rounded-md w-96 h-72 m-3 items-center">
             {props.image_url && (
-                <Image
+                <img
                     src={`https://image.tmdb.org/t/p/w500/${props.image_url}`}
                     alt={props.title}
-                    className="movieImage"
+                    className="m-1 w-36 h-full"
                 />
             )}
-            <Card className="movieCard">
-                <Card.Body style={{ overflowY: "scroll" }}>
-                    <Card.Title>{props.title}</Card.Title>
+            <div className="max-h-full m-3 flex overflow-auto">
+                <div>
+                    <span className="text-lg">{props.title}</span>
 
-                    <ListGroup>
-                        <ListGroup.Item>
-                            Released: {props.released_on}
-                        </ListGroup.Item>
-                        <ListGroup.Item variant="flush">
-                            Popularity: {props.popularity}
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            Total votes: {props.total_votes}
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            Average votes: {props.average_votes}
-                        </ListGroup.Item>
-                    </ListGroup>
-
-                    <p>{props.overview}</p>
-                </Card.Body>
-            </Card>
+                    <ul>
+                        <li>Released: {props.released_on}</li>
+                        <li>Popularity: {props.popularity}</li>
+                        <li>Total votes: {props.total_votes}</li>
+                        <li>Average votes: {props.average_votes}</li>
+                    </ul>
+                    <p className="h-40 overflow-auto">{props.overview}</p>
+                </div>
+            </div>
         </div>
     )
 }

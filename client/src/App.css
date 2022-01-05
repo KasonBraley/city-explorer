@@ -58,22 +58,6 @@ body {
     align-items: center;
 }
 
-.movie {
-    display: flex;
-    width: 600px;
-    height: 440px;
-    margin: 10px;
-    background-color: lightgray;
-    border-radius: 15px;
-    align-items: center;
-}
-
-.movieImage {
-    margin: 5px;
-    width: 10rem;
-    height: 23rem;
-}
-
 .movieCard {
     height: 23rem;
     margin: 5px;
