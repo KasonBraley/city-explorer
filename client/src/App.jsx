@@ -1,5 +1,4 @@
-import React, { useState } from "react"
-import "bootstrap/dist/css/bootstrap.min.css"
+import { useState } from "react"
 
 import CityForm from "./components/form.jsx"
 import CityCard from "./components/cityCard.jsx"

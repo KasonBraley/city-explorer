@@ -1,4 +1,3 @@
-import React from "react"
 import Error from "./error.jsx"
 
 export default function CityForm(props) {
@@ -12,11 +11,16 @@ export default function CityForm(props) {
         <form className="flex flex-col w-50" onSubmit={handleSubmit}>
             <label className="text-black">
                 Search For a City
-                <input type="text" placeholder="Enter city name" name="city" defaultValue="mesa"/>
+                <input
+                    type="text"
+                    placeholder="Enter city name"
+                    name="city"
+                    defaultValue="mesa"
+                />
             </label>
             <input
                 type="submit"
-                className="ml-3 bg-blue-700 w-16"
+                className="ml-3 bg-blue-700 w-16 cursor-pointer"
                 placeholder="Explore!"
             />
             {props.error && <Error status={props.error} />}

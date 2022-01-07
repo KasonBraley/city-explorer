@@ -5,7 +5,7 @@ export default async function getForecastData(SERVER_URL, cityData) {
 
     try {
         const response = await axios.get(API)
-        return response.data 
+        return response.data
     } catch (err) {
         throw err
     }

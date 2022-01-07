@@ -1,22 +1,21 @@
-import React from "react"
-import "../App.css"
-
 export default function Movies({ movies }) {
     function generateData() {
-        return movies.filter((movie) => movie.poster_path).map((movie, index) => {
-            return (
-                <Movie
-                    key={index}
-                    title={movie.title}
-                    image_url={movie.poster_path}
-                    released_on={movie.release_date}
-                    popularity={movie.popularity}
-                    total_votes={movie.vote_count}
-                    average_votes={movie.vote_average}
-                    overview={movie.overview}
-                />
-            )
-        })
+        return movies
+            .filter((movie) => movie.poster_path)
+            .map((movie, index) => {
+                return (
+                    <Movie
+                        key={index}
+                        title={movie.title}
+                        image_url={movie.poster_path}
+                        released_on={movie.release_date}
+                        popularity={movie.popularity}
+                        total_votes={movie.vote_count}
+                        average_votes={movie.vote_average}
+                        overview={movie.overview}
+                    />
+                )
+            })
     }
     return <div className="grid grid-cols-4">{generateData()}</div>
 }
