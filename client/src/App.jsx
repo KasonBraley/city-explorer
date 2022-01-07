@@ -1,8 +1,13 @@
 import { useState } from "react"
+import { Routes, Route } from "react-router-dom"
 
+import Home from "./components/home.jsx"
 import CityForm from "./components/form.jsx"
 import CityCard from "./components/cityCard.jsx"
 import Movies from "./components/movies.jsx"
+import Layout from "./components/layout.jsx"
+import Weather from "./components/weather.jsx"
+import Map from "./components/map.jsx"
 
 import getMovieData from "./utils/getMovieData.js"
 import getForecastData from "./utils/getForecastData.js"
@@ -42,23 +47,31 @@ export default function App() {
     }
 
     return (
-        <>
-            <CityForm
-                handleSubmit={handleSubmit}
-                searchQuery={searchQuery}
-                searchCount={searchCount}
-                error={error}
-            />
-            {cityData.place_id && (
-                <CityCard
-                    search={searchQuery}
-                    cityData={cityData}
-                    forecast={forecast.data}
+        <Layout>
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <Home
+                            handleSubmit={handleSubmit}
+                            searchQuery={searchQuery}
+                            searchCount={searchCount}
+                            error={error}
+                        />
+                    }
                 />
+                <Route path="movies" element={<Movies movies={movies.results} />} />
+                <Route path="weather" element={<Weather />} />
+            </Routes>
+            {cityData?.place_id && (
+                <>
+                    <div className="flex justify-between">
+                        <CityCard search={searchQuery} cityData={cityData} />
+                        <Map cityData={cityData} />
+                        <Weather forecast={forecast.data} />
+                    </div>
+                </>
             )}
-            <div className="allMovies">
-                {movies && <Movies movies={movies.results} />}
-            </div>
-        </>
+        </Layout>
     )
 }
