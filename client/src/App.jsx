@@ -9,7 +9,7 @@ import getMovieData from "./utils/getMovieData.js"
 import getForecastData from "./utils/getForecastData.js"
 import getLocationData from "./utils/getLocationData.js"
 
-const SERVER_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3001"
+const SERVER_URL = process.env.SERVER_URL || "http://localhost:3001"
 
 export default function App() {
     let [movies, setMovies] = useState("")
@@ -54,11 +54,11 @@ export default function App() {
                 <CityCard
                     search={searchQuery}
                     cityData={cityData}
-                    forecast={forecast}
+                    forecast={forecast.data}
                 />
             )}
             <div className="allMovies">
-                {movies && <Movies movies={movies} />}
+                {movies && <Movies movies={movies.results} />}
             </div>
         </>
     )
