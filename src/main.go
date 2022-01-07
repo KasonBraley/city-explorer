@@ -22,7 +22,7 @@ func weather(w http.ResponseWriter, r *http.Request) {
 	setupHeader(&w, r)
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Error loading .env file", err)
+		fmt.Println(err)
 	}
 	apiKey := os.Getenv("WEATHER_API_KEY")
 
@@ -41,19 +41,19 @@ func weather(w http.ResponseWriter, r *http.Request) {
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatal("Error reading response. ", err)
+		fmt.Println(err)
 	}
 
 	var data WbResponse
 
 	jsonErr := json.Unmarshal(body, &data)
 	if jsonErr != nil {
-		log.Fatal("Error unmarshalling JSON data", jsonErr)
+		fmt.Println(err)
 	}
 
 	bytes, err := json.Marshal(data)
 	if err != nil {
-		log.Fatal("Error Marshalling JSON data", err)
+		fmt.Println(err)
 	}
 
 	w.Write([]byte(bytes))
@@ -62,11 +62,11 @@ func weather(w http.ResponseWriter, r *http.Request) {
 func movies(w http.ResponseWriter, r *http.Request) {
 
 	setupHeader(&w, r)
-	movieName := r.URL.Query().Get("query")
+	movieName := r.URL.Query().Get("city")
 
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Error loading .env file", err)
+		fmt.Println(err)
 	}
 	apiKey := os.Getenv("MOVIE_API_KEY")
 	url := fmt.Sprintf("https://api.themoviedb.org/3/search/movie?api_key=%s&query=%s", apiKey, movieName)
@@ -81,7 +81,36 @@ func movies(w http.ResponseWriter, r *http.Request) {
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatal("Error reading response. ", err)
+		fmt.Println(err)
+	}
+
+	w.Write([]byte(body))
+}
+
+func location(w http.ResponseWriter, r *http.Request) {
+
+	setupHeader(&w, r)
+	movieName := r.URL.Query().Get("city")
+
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println(err)
+	}
+	apiKey := os.Getenv("LOCATION_API_KEY")
+
+	url := fmt.Sprintf("https://us1.locationiq.com/v1/search.php?key=%s&q=%s&format=json&limit=1", apiKey, movieName)
+
+	resp, err := http.Get(url)
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer resp.Body.Close()
+
+	fmt.Println("Response status:", resp.Status)
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println(err)
 	}
 
 	w.Write([]byte(body))
@@ -100,7 +129,12 @@ func main() {
 	http.HandleFunc("/", root)
 	http.HandleFunc("/weather", weather)
 	http.HandleFunc("/movies", movies)
+	http.HandleFunc("/location", location)
 
 	// starts our server, wrapped in log.Fatal in case an error is encountered
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println(err)
+	}
 	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), nil))
 }

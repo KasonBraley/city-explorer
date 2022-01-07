@@ -28,7 +28,7 @@ export default function App() {
         }
 
         try {
-            let locationData = await getLocationData(query)
+            let locationData = await getLocationData(SERVER_URL, query)
             setCityData(locationData)
 
             if (locationData.lon && locationData.lat) {
