@@ -10,7 +10,7 @@ function WeatherDay(props) {
 
 export default function Weather(props) {
     function generateData() {
-        return props.forecast.map((element, index) => {
+        return props.forecast?.map((element, index) => {
             return (
                 <WeatherDay
                     key={index}

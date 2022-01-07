@@ -1,7 +1,7 @@
 export default function Movies({ movies }) {
     function generateData() {
         return movies
-            .filter((movie) => movie.poster_path)
+            ?.filter((movie) => movie.poster_path)
             .map((movie, index) => {
                 return (
                     <Movie
