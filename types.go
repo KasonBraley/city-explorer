@@ -1,4 +1,4 @@
-package main
+package city
 
 // copied from https://github.com/alljames/weatherbit-go/blob/master/pkg/types.go
 
