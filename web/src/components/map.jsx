@@ -1,7 +1,8 @@
-export default function Map(props) {
+export default function Map({ cityData }) {
+    const SERVER_URL = process.env.SERVER_URL
     return (
         <img
-            src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.CITY_EXPLORER}&center=${props.cityData.lat},${props.cityData.lon}`}
+            src={`${SERVER_URL}/location/image?lat=${cityData.lat}&lon=${cityData.lon}`}
             alt="city"
             className="w-96 rounded-lg"
         />

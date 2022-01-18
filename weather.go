@@ -48,5 +48,5 @@ func Weather(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 
-	w.Write([]byte(bytes))
+	w.Write(bytes)
 }

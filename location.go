@@ -35,5 +35,33 @@ func Location(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 
-	w.Write([]byte(body))
+	w.Write(body)
+}
+
+func LocationImage(w http.ResponseWriter, r *http.Request) {
+	SetupHeader(&w, r)
+	lat := r.URL.Query().Get("lat")
+	lon := r.URL.Query().Get("lon")
+
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println(err)
+	}
+	apiKey := os.Getenv("LOCATION_API_KEY")
+
+	url := fmt.Sprintf("https://maps.locationiq.com/v3/staticmap?key=%s&center=%s,%s", apiKey, lat, lon)
+
+	resp, err := http.Get(url)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	defer resp.Body.Close()
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	w.Header().Set("Content-Type", "image/png")
+	w.Write(body)
 }

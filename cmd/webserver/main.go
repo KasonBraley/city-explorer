@@ -23,6 +23,7 @@ func main() {
 	http.HandleFunc("/weather", city.Weather)
 	http.HandleFunc("/movies", city.Movies)
 	http.HandleFunc("/location", city.Location)
+	http.HandleFunc("/location/image", city.LocationImage)
 
 	// starts our server, wrapped in log.Fatal in case an error is encountered
 	err := godotenv.Load()

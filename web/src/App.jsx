@@ -2,7 +2,6 @@ import { useState } from "react"
 import { Routes, Route } from "react-router-dom"
 
 import Home from "./components/home.jsx"
-import CityForm from "./components/form.jsx"
 import CityCard from "./components/cityCard.jsx"
 import Movies from "./components/movies.jsx"
 import Layout from "./components/layout.jsx"
@@ -13,7 +12,7 @@ import getMovieData from "./utils/getMovieData.js"
 import getForecastData from "./utils/getForecastData.js"
 import getLocationData from "./utils/getLocationData.js"
 
-const SERVER_URL = process.env.SERVER_URL || "http://localhost:3001"
+const SERVER_URL = process.env.SERVER_URL
 
 export default function App() {
     let [movies, setMovies] = useState("")
