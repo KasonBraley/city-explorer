@@ -18,12 +18,27 @@ Requires the following dependencies:
 - Yarn
 - Go >= 1.17.0
 - API Keys from:
-    - [Location IQ Geocoding API](https://locationiq.com/)
-    - [themoviedb](https://developers.themoviedb.org/3) 
-    - [weatherbit.io](https://www.weatherbit.io/api) 
+  - [Location IQ Geocoding API](https://locationiq.com/)
+  - [themoviedb](https://developers.themoviedb.org/3)
+  - [weatherbit.io](https://www.weatherbit.io/api)
 
 ### Local Setup
-#### Docker
+
+#### Docker Compose
+
+The following commands will start both the frontend and backend services.
+
+1. Using the [.env.sample](.env.sample) as a reference, set the required variables for the environment. Create a `.env` file with those values.
+2. `docker compose build`
+3. `docker compose up`
+
+Default ports:
+
+- Frontend: 8080
+- Backend: 5000
+
+<details>
+<summary>Docker only</summary>
 
 ##### Backend
 
@@ -32,17 +47,17 @@ Requires the following dependencies:
 3. `docker run --rm -p 5000:5000 --env-file=.env city-explorer:latest`
 
 ##### Frontend
-1. Using the web [.env.sample](/web/.env.sample) as a reference, set the required variables for the environment. Create a `.env` file with those values.
-2. `cd web`
-3. `docker build -t city-explorer-web .`
-4. `docker run --rm --env-file=.env city-explorer-web:latest`\
-    Runs on port 8080 by default
 
-**TODO**:
-Docker Compose
+1. `cd web`
+2. `docker build -t city-explorer-web .`
+3. `docker run --rm city-explorer-web:latest`
+
+</details>
 
 ---
-**Third Party API's used**: 
+
+**Third Party API's used**:
+
 - [Location IQ Geocoding API](https://locationiq.com/)
-- [themoviedb](https://developers.themoviedb.org/3) 
-- [weatherbit.io](https://www.weatherbit.io/api) 
+- [themoviedb](https://developers.themoviedb.org/3)
+- [weatherbit.io](https://www.weatherbit.io/api)
