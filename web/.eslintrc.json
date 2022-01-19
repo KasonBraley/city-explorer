@@ -3,6 +3,7 @@
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:react-hooks/recommended",
+        "plugin:@next/next/recommended",
         "prettier"
     ],
     "parserOptions": {
@@ -19,5 +20,10 @@
         "eqeqeq": ["error", "always"],
         "react/prop-types": "off",
         "react/react-in-jsx-scope": "off"
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
     }
 }

@@ -34,7 +34,7 @@ The following commands will start both the frontend and backend services.
 
 Default ports:
 
-- Frontend: 8080
+- Frontend: 3000
 - Backend: 5000
 
 <details>

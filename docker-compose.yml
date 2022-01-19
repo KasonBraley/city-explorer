@@ -12,6 +12,6 @@ services:
   web:
     build: ./web
     ports:
-      - "8080:8080"
+      - "3000:3000"
     environment:
-    - SERVER_URL=http://localhost:5000
+    - NEXT_PUBLIC_SERVER_URL=http://localhost:5000

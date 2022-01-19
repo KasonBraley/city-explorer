@@ -1,7 +1,6 @@
 FROM node:16-alpine AS base
 
 ARG NODE_ENV
-# ENV NODE_ENV "${NODE_ENV:-production}"
 
 FROM base as deps
 # Create app directory
@@ -19,8 +18,7 @@ WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules/
 
-# Specify what container executes
-ENTRYPOINT ["yarn", "start"]
+EXPOSE 3000
 
-# Give a default cmd to the ENTRYPOINT
-# CMD ["prod"]
+# Specify what container executes
+ENTRYPOINT ["yarn", "dev"]
